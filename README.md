@@ -1,17 +1,14 @@
 # bandersguru
 
-Hi and welcome on Carts-Guru's software-engineering test.
+# How to run
 
-We ask of you to please write this test in Javascript, using `NodeJS@10.14.2`.
+* git clone this repo, cd into it
+* npm install
+* node server.js
 
-## TODO
-
-If you have watched Bandersnatch on Netflix, this might be familiar. 
-The goal of this techical test is to code a *'book where you are the hero'*. Don't worry, we won't be testing your writting skills ;).
-
-In this repository, you are provided a `scenarios.json` file that describes the scenario of this game.
-
-Using a database is a bonus task, you can work with memory only, it's OK.
+Documentation is in server.js or in the terminal as you go along.  
+The goal of this is to complete the mandatory tasks for a coding assessment.  
+Still incomplete. Need to fix the last of the routes.  
 
 ## Mandatory tasks
 
