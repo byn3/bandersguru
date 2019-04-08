@@ -124,8 +124,14 @@ app.get("/game/:id", (req, res) => {
   };
 
   globalProgress = progress;
+  let progressString = "id: \"" + globalProgress['id'] + "\" \n"
+      + "scenario: \'" + globalProgress['scenarios'] + "\" \n"
+      + "currentStep: \"" + globalProgress['currentStep'] +"\" \n"
+      + "choices: [ " + globalProgress['choices'] + "] \n";
 
-  res.send(progress);
+
+
+  res.send(progressString);
 });
 
 // this will output something like :
