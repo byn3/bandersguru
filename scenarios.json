@@ -7,7 +7,7 @@
         "choices": [
           {
             "line": "Enter the office",
-            "goto": "1",
+            "goto": "one",
             "reason": "You knock and then open the door."
           },
           {
@@ -17,7 +17,7 @@
           }
         ]
       },
-      "1": {
+      "one": {
         "story": "You meet a group of Carts-Guru's finest: the Software Engineers!",
         "choices": [
           {
@@ -32,12 +32,12 @@
           },
           {
             "line": "Say \" Hi! I'm #name#.",
-            "goto": "2",
+            "goto": "two",
             "reason": "They all warmly welcome you and after a bit of chit-chat and a coffee, they invite you to follow them to a conference room for your inteview."
           }
         ]
       },
-      "2": {
+      "two": {
         "story": "You follow them to a conference room. People sit around the table.",
         "choices": [
           {
