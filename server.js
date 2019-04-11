@@ -94,10 +94,12 @@ app.get("/game/:id", (req, res) => {
     globalLines.push(value["line"]);
   }
 
+  let story = json[scenarios].nodes.initial.story;
   session = {
     id: req.params.id,
     scenario: scenarios,
     currentStep: session.currentStep,
+    story: story,
     choices: globalLines
   };
 
@@ -111,6 +113,8 @@ app.get("/game/:id", (req, res) => {
 
 
 // EXAMPLE: INPUT:: curl -d "choiceIndex=0" -X POST http://localhost:8080/game/458a92b7-ca95-47d9-a26d-7b1ce8090f84
+// this will output the session and more choices.
+// you either keep choosing choices or you fail/win
 app.post("/game/:id", (req, res) => {
 
   if (req.params.id != session.id) {
@@ -118,6 +122,7 @@ app.post("/game/:id", (req, res) => {
   }
   let choiceMade = req.body.choiceIndex;
   let transition = "failure";
+  let story = "";
 
   transition = globalChoices[choiceMade][1].goto;
   globalChoices["currentStep"] = transition;
@@ -133,23 +138,29 @@ app.post("/game/:id", (req, res) => {
     for (let [key, value] of Object.entries(json[scenarios].nodes.one.choices)) {
       globalLines.push(value["line"]);
     }
+    story = json[scenarios].nodes.one.story;
     globalChoices = Object.entries(json[scenarios].nodes.one.choices)
   } else if (transition == "two") {
     for (let [key, value] of Object.entries(json[scenarios].nodes.two.choices)) {
       globalLines.push(value["line"]);
     }
+    story = json[scenarios].nodes.two.story;
     globalChoices = Object.entries(json[scenarios].nodes.two.choices)
   }
 
-  let progress = {
+  progress = {
     id: req.params.id,
     scenario: scenarios,
-    // currentStep: transition,
+    currentStep: transition,
+    story: story,
     choices: globalLines
   };
   session = progress;
-  if (transition != "success") {
-    res.send(JSON.stringify(session["choices"], null, 2));
+  if (transition == "failure" || transition == "success") {
+        ;
+  }
+  else {
+    res.send(JSON.stringify(session, null, 2));
   }
 });
 
