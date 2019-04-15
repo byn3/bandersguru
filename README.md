@@ -1,5 +1,9 @@
 # bandersguru
 
+## What is this?
+
+Similar to the old Goosebumps books, Bandersguru, or any other choose your own adventure game, this project was meant to emulate that. Basically with 2 terminals and cURLing, one could play out the story that is written inside the json file included. The logic and game is finished but the story could be expanded upon. This app uses Javascript, NodeJS, and ExpressJS. It mainly handles GET and POST requests via specific routes.
+
 ## How to run
 
 * git clone this repo, cd into it
