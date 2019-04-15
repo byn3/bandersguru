@@ -1,26 +1,17 @@
 # bandersguru
 
-# How to run
+## How to run
 
 * git clone this repo, cd into it
 * npm install
 * node server.js
+* open another terminal and follow the directions  
 
-Documentation is in server.js or in the terminal as you go along.  
-The goal of this is to complete the mandatory tasks for a coding assessment.  
-Still incomplete. Need to fix the last of the routes.  
+Documentation is in server.js file or in the terminal as you go along.  
+The goal of this was to learn how to use express and node in order to complete a take home assignment for a startup. I had to complete the mandatory tasks with tools I was not familiar with. 
+Still incomplete. Need to fix error handling and some edge cases.
 
 ## Mandatory tasks
-
-#### Step 0:
-
-Clone this project and initialize your `package.json` with npm.
-
-#### Step 1: 
-
-Bootstrap a basic NodeJS HTTP Server using *any* NodeJS web framework and listen on the `8080` port in a `server.js` file.
-
-#### Step 2: 
 
 Using a router, add these routes to the server:
 
@@ -88,13 +79,10 @@ Using a router, add these routes to the server:
 }
 ```
 
-At this point your game should be playable by *cURL*.
+At this point the game should be playable by *cURL*.
 
-(see `boom` on npm)
 
-## Bonus steps: 
-
-Those are for more experienced software engineers. It really is OK to not do them if you're a junior *:)*
+## Future implementations: 
 
 #### Easy
 
