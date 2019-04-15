@@ -1,9 +1,9 @@
 {
   "BandersGuru": {
-    "summary": "Try to get recruited as a Software Engineer at Carts-Guru!",
+    "summary": "Try to get recruited as a Software Engineer at Lyft's apprenticeship program!",
     "nodes": {
       "initial": {
-        "story": "You are in front of the Carts-Guru office at 880 Harrison in San Francisco",
+        "story": "You are in front of the Lyft office at 185 Berry St. in San Francisco. Lotta people walking around China Basin. There's a Giants game today.",
         "choices": [
           {
             "line": "Enter the office",
@@ -18,7 +18,7 @@
         ]
       },
       "one": {
-        "story": "You meet a group of Carts-Guru's finest: the Software Engineers!",
+        "story": "You meet a group of Lyft's finest: the Software Engineers!",
         "choices": [
           {
             "line": "Start doing the backpack-kid dance to impress them.",
