@@ -2,7 +2,16 @@
 
 ## What is this?
 
-Similar to the old Goosebumps books, Bandersguru, or any other choose your own adventure game, this project was meant to emulate that. Basically with 2 terminals and cURLing, one could play out the story that is written inside the scenarios.json file included. The logic and game is finished but the story could be expanded upon. This app uses Javascript, NodeJS, and ExpressJS. It mainly handles GET and POST requests via specific routes.
+Similar to the old Goosebumps books, Bandersguru, or any other choose your own adventure game, this project was meant to emulate that. Basically with 2 terminals and cURLing, one could play out the story that is written inside the scenarios.json file included. The logic and game is finished but the story could be expanded upon. This app uses Javascript, NodeJS, and ExpressJS. It mainly handles GET and POST requests via specific routes. There can be more visual and output improvements and I will get to it when I have the time.
+
+
+This is a screenshot of what playing the game looks like in one of the terminals.
+![A screen shot of what the game looks like. A text based adventure game.](https://github.com/byn3/bandersguru/blob/master/playingBanders.png)
+
+___ 
+
+This is a screenshot of the other terminal that prompts and tells the user how to play.
+![A screen shot of what the node terminal looks like. It tells you how to play.](https://github.com/byn3/bandersguru/blob/master/node%20index.png)
 
 ## How to run
 
