@@ -7,9 +7,10 @@
 * node server.js
 * open another terminal and follow the directions  
 
-Documentation is in server.js file or in the terminal as you go along.  
-The goal of this was to learn how to use express and node in order to complete a take home assignment for a startup. I had to complete the mandatory tasks with tools I was not familiar with. 
-Still incomplete. Need to fix error handling and some edge cases.
+Documentation is in server.js file or in the terminal as you go along.    
+The goal of this was to learn how to use express and node in order to complete a take home assignment for a startup.  
+I had to complete the mandatory tasks with tools I was not familiar with.   
+It is mostly done. Need to fix error handling and some edge cases.  
 
 ## Mandatory tasks
 
