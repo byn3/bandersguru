@@ -2,119 +2,56 @@
 
 ## What is this?
 
-Similar to the old Goosebumps books, Bandersguru, or any other choose your own adventure game, this project was meant to emulate that. Basically with 2 terminals and cURLing, one could play out the story that is written inside the scenarios.json file included. The logic and game is finished but the story could be expanded upon. This app uses Javascript, NodeJS, and ExpressJS. It mainly handles GET and POST requests via specific routes. There can be more visual and output improvements and I will get to it when I have the time.
+Similar to the old Goosebumps books, Bandersguru, or any other choose your own adventure game, this project was meant to emulate that. Basically with 2 terminals and curling, one could play out the story that is written inside the data/scenarios.json file included. The logic and game is finished but the story could be expanded upon. This app uses Javascript, NodeJS, and ExpressJS. It mainly handles GET and POST requests via specific routes. There can be more visual and output improvements and I will get to it when I have the time.
 
 
 This is a screenshot of what playing the game looks like in one of the terminals.
-![A screen shot of what the game looks like. A text based adventure game.](https://github.com/byn3/bandersguru/blob/master/playingBanders.png)
+![A screen shot of what the game looks like. A text based adventure game.](https://github.com/byn3/bandersguru/blob/master/images/playingBanders.png)
 
 ___ 
 
 This is a screenshot of the other terminal that prompts and tells the user how to play.
-![A screen shot of what the node terminal looks like. It tells you how to play.](https://github.com/byn3/bandersguru/blob/master/node%20index.png)
+![A screen shot of what the node terminal looks like. It tells you how to play.](https://github.com/byn3/bandersguru/blob/master/images/node%20index.png)
 
 ## How to run
 
-* git clone this repo, cd into it
-* npm install
-* node server.js
-* open another terminal and follow the directions  
+* git clone this repo, cd into it  
+* npm install  
+* node server.js *(You will get a line of code that you can paste to get started)*  
+* open another terminal and follow the directions after each curl  
 
-Documentation is in server.js file or in the terminal as you go along.    
-The goal of this was to learn how to use express and node in order to complete a take home assignment for a startup.  
-I had to complete the mandatory tasks with tools I was not familiar with.   
-It is mostly done. Need to fix error handling and some edge cases.  
+Documentation is in server.js file as well as in the terminal as you go along.    
+The goal of this was to learn how to use ExpressJS. 
 
-## Mandatory tasks
-
-Using a router, add these routes to the server:
-
-- `GET` `/scenarios` where the scenarios are the top level key in `scenarios.json`
-
-```
-{
-  "scenarios": [
-    "BandersGuru"
-  ]
-}
-```
-- `POST`  `/game` which allows to start a game given a scenario name as JSON and returns the ID of a game.
-
-```
-{
-  "id": "ec6a7bd0-4f45-11e9-9f9d-2dcc58927dae",
-  "scenario": "BandersGuru",
-  "currentStep": "initial"
-}
-```
-- `GET` `/game/:id` which allows one to get a game by ID.
-```
-{
-  "id": "derp",
-  "scenario": "BandersGuru",
-  "currentStep": "initial",
-  "choices": [
-    {
-      "line": "Enter the office"
-    },
-    {
-      "line": "Run away in the opposite direction"
-    }
-  ]
-}
-```
-- `POST` `/game/:id` which allows one to choose one of the possible answer to a question and returns the following one, given the index of the selected answer. (ie: `initial` -> select `choice @index 1`  ->`node#1` and so on..)
+## HTTP Requests and Endpoints
 
 
-*Payload*
-``` 
-{
-    "choiceIndex": 0
-}
-```
+- `GET` `/scenarios` where you get which scenarios are supported. Currently only one, BandersGuru.
 
-*Response*
-```
-{
-  "id": "derp",
-  "scenario": "BandersGuru",
-  "currentStep": "1",
-  "choices": [
-    {
-      "line": "Start doing the backpack-kid dance to impress them."
-    },
-    {
-      "line": "Tell them that Android is clearly better than Apple and that whoever would argue the contrary is completely insane."
-    },
-    {
-      "line": "Say \" Hi! I'm #name#."
-    }
-  ]
-}
-```
+- `POST`  `/game` which allows a user to start a game, given a scenario name as JSON, and returns the ID of a game, which game, and the current progress.
 
-At this point the game should be playable by *cURL*.
+- `GET` `/game/:id` which allows a user to get a game info by ID.
+
+- `POST` `/game/:id` which allows the user to choose one of the possible answer to a question and returns the following result, given the index of the selected answer. ChoiceIndex = 0 is the first path you can take out of the options.
+
+At this point the game is playable by *cURL*.
+
+
+## Bugs:
+Missing some error handling when out of index. Should just not throw error and reprompt user that they.
+
 
 
 ## Future implementations: 
-
-#### Easy
-
+- Reset command, a frontend, and deployed on servers. Make the console output prettier.
 - Use babel to transpile to use modern features (`import/export`...)
 - Add tests with a test framework (`jasmine`, `mocha`, `jest`...)
 - Linter + prettier (`eslint` + `prettier`) using the `Standard` convention
 
-#### Medium:
-
-- Create a basic UI for the game. No React/no Vue. Vanilla like a boss.
+- Create a basic UI for the game.
 - Plug-in a database such as `Mongo` or `Postgre` instead of putting everything in memory.
-
-#### Hard:
 
 - Use an ORM (`sequelize`...)
 
-#### God:
-
 - Run everything on docker-compose with live-reload. Now that's a real dev workflow!
-- ES6+ is too easy. Do everything in Reason.
 - Do your own scenario *:)*
