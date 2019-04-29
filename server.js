@@ -89,20 +89,21 @@ app.get("/game/:id", (req, res) => {
   console.log("Example input is-- curl -d \"choiceIndex=0\" -X POST http://localhost:8080/game/{YOURgameID}");
 
   if (!sessions[req.params.id]) {
-    res.send("\n\nWRONG ID IDIOT\n\n");
+    res.send("\n\nWRONG ID\n\n");
   }
 
-  globalChoices = Object.entries(json[scenarios].nodes.initial.choices);
+  const currentStep = sessions[id].currentStep;
+  globalChoices = Object.entries(json.BandersGuru.nodes[currentStep].choices);
   globalLines = [];
-  for (let [key, value] of Object.entries(json[scenarios].nodes.initial.choices)) {
+  for (let [key, value] of Object.entries(json.BandersGuru.nodes[currentStep].choices)) {
     globalLines.push(value["line"]);
   }
 
-  let story = json[scenarios].nodes.initial.story;
+  const story = json.BandersGuru.nodes[currentStep].story;
   session = {
     id: req.params.id,
     scenario: scenarios,
-    currentStep: session.currentStep,
+    currentStep: currentStep,
     story: story,
     choices: globalLines
   };
@@ -142,32 +143,33 @@ app.post("/game/:id", (req, res) => {
     console.log("ya lost man\n\n");
     res.send("You lose\n\n");
   }
-      const item = json[scenarios].nodes[transition]
-      if (item) {
-        for (let [key, value] of Object.entries(item.choices)) {
-            globalLines.push(value["line"]);
-        }
+    const item = json[scenarios].nodes[transition]
+    if (item) {
+      for (let [key, value] of Object.entries(item.choices)) {
+          globalLines.push(value["line"]);
+      }
 
-      story = item.story;
-      globalChoices = item.choices;
-    }
+    story = item.story;
+    globalChoices = item.choices;
+  }
 
-    progress = {
-      id: req.params.id,
-      scenario: scenarios,
-      currentStep: transition,
-      story: story,
-      choices: globalLines
-    };
-    sessions[id] = session = progress;
-    if (transition == "failure" || transition == "success") {
-          ;
-    }
-    else {
-      res.json({
-        session
-      })
-    }
+  session = {
+    id: req.params.id,
+    scenario: scenarios,
+    currentStep: transition,
+    story: story,
+    choices: globalLines
+  };
+  sessions[id] = session;
+
+  if (transition == "failure" || transition == "success") {
+        ;
+  }
+  else {
+    res.json({
+      session
+    })
+  }
 });
 
 let server = app.listen(8080, function() {
