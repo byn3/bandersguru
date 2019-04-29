@@ -28,10 +28,11 @@ function getConfig(file) {
 }
 
 // assign json variable to the read data.
-json = getConfig('scenarios.json');
+json = getConfig('data/scenarios.json');
 // store the keys of json (scenarios) in variable scenarios
 const scenarios = (Object.keys(json));
 let session = {};
+let sessions = {}
 let id;
 let globalChoices = [];
 let globalLines = [];
@@ -44,8 +45,9 @@ let globalLines = [];
 // paste in terminal -- curl 127.0.0.1:8080/scenarios
 app.get('/scenarios', function(req, res) {
   console.log('To choose a game, please paste this in a terminal: curl -d "scenario=BandersGuru" -X POST http://localhost:8080/game');
-  res.send('{\n  scenarios: ' + JSON.stringify(scenarios, null, 2) + '\n}');
-})
+  res.json({
+    scenarios
+  })})
 // ex output: response should be scenarios: ["BandersGuru"],
 //  it should print out ALL games if there was more though, not just banders
 
@@ -59,18 +61,20 @@ app.post('/game', function(req, res) {
   }
   id = uuidv4();
   session = {
-    id: id,
-    scenario: req.body.scenario,
-    currentStep: "initial"
+  scenario: req.body.scenario,
+  currentStep: "initial"
   };
+  sessions[id] = session;
   //  this lists all key and values. output format not pretty?
   // res.send(Object.entries(session) + '\n');
   stringy = ""
-  for (let [key, value] of Object.entries(session)) {
-    // res.send(key);
-    stringy += (key + ': ' + value + ',\n');
-  }
-  res.send(JSON.stringify(session, null, 2) + "\n");
+  // for (let [key, value] of Object.entries(session)) {
+  //   // res.send(key);
+  //   stringy += (key + ': ' + value + ',\n');
+  // }
+  res.json({
+    session, id
+  })
   // res.send(stringy);
 });
 // id will vary but example output I have is...
@@ -84,7 +88,7 @@ app.get("/game/:id", (req, res) => {
   console.log("Look through the choices, First line is 0, second is 1, etc.");
   console.log("Example input is-- curl -d \"choiceIndex=0\" -X POST http://localhost:8080/game/{YOURgameID}");
 
-  if (req.params.id != session.id) {
+  if (!sessions[req.params.id]) {
     res.send("\n\nWRONG ID IDIOT\n\n");
   }
 
@@ -102,8 +106,11 @@ app.get("/game/:id", (req, res) => {
     story: story,
     choices: globalLines
   };
+  sessions[id] = session;
 
-  res.send(JSON.stringify(session, null, 2));
+  res.json({
+    session
+  });
 });
 
 // this will output something like :
@@ -134,34 +141,33 @@ app.post("/game/:id", (req, res) => {
   if (transition == "failure") {
     console.log("ya lost man\n\n");
     res.send("You lose\n\n");
-  } else if (transition == "one") {
-    for (let [key, value] of Object.entries(json[scenarios].nodes.one.choices)) {
-      globalLines.push(value["line"]);
-    }
-    story = json[scenarios].nodes.one.story;
-    globalChoices = Object.entries(json[scenarios].nodes.one.choices)
-  } else if (transition == "two") {
-    for (let [key, value] of Object.entries(json[scenarios].nodes.two.choices)) {
-      globalLines.push(value["line"]);
-    }
-    story = json[scenarios].nodes.two.story;
-    globalChoices = Object.entries(json[scenarios].nodes.two.choices)
   }
+      const item = json[scenarios].nodes[transition]
+      if (item) {
+        for (let [key, value] of Object.entries(item.choices)) {
+            globalLines.push(value["line"]);
+        }
 
-  progress = {
-    id: req.params.id,
-    scenario: scenarios,
-    currentStep: transition,
-    story: story,
-    choices: globalLines
-  };
-  session = progress;
-  if (transition == "failure" || transition == "success") {
-        ;
-  }
-  else {
-    res.send(JSON.stringify(session, null, 2));
-  }
+      story = item.story;
+      globalChoices = item.choices;
+    }
+
+    progress = {
+      id: req.params.id,
+      scenario: scenarios,
+      currentStep: transition,
+      story: story,
+      choices: globalLines
+    };
+    sessions[id] = session = progress;
+    if (transition == "failure" || transition == "success") {
+          ;
+    }
+    else {
+      res.json({
+        session
+      })
+    }
 });
 
 let server = app.listen(8080, function() {
